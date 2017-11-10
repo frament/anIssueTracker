@@ -1,0 +1,6 @@
+{
+  "appId":"naIssueTracker",
+  "masterKey":"naIssueTrackerKEY",
+  "databaseURI":"mongodb://localhost:27017/naIssueTracker",
+  "serverURL":"http://localhost:1337/parse"
+}
