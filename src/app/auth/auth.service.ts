@@ -9,9 +9,10 @@ export class AuthService {
     this.parse.initialize("naIssueTracker");
     this.parse.serverURL = 'http://localhost:1337/parse';
   }
-
   auth(login:string,pass:string){
 
   }
+  exit(){
 
+  }
 }
