@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ../parse-configs
+mongodb-runner start
+parse-server ./server.json &
+parse-dashboard --config ./dashboard.json &

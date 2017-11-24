@@ -1,0 +1,13 @@
+<mat-card class="auth__content" *ngIf="waitingSessionCheck === false">
+  <mat-card-title>Авторизация</mat-card-title>
+  <div class="auth__form">
+    <mat-form-field class="auth__login">
+      <input matInput placeholder="Логин" #login>
+    </mat-form-field>
+    <mat-form-field class="auth__password">
+      <input matInput placeholder="Пароль" #password [type]="hidePass ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <button mat-button (click)="authorize(login.value,password.value)">Ок</button>
+  </div>
+</mat-card>

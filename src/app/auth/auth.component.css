@@ -1,0 +1,8 @@
+.auth__content{
+  width: 240px;
+  margin: auto;
+}
+
+.auth__form > mat-form-field{
+  width: 100%;
+}
