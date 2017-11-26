@@ -1,5 +1,5 @@
 <mat-toolbar>
-  I am top
+  <button *ngIf="showSide" mat-button (click)="sidenav.toggle()">Меню</button>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav>

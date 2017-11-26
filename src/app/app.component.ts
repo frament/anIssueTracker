@@ -10,17 +10,21 @@ import {Location} from '@angular/common'
 })
 export class AppComponent implements OnInit{
   title = 'app';
+  currentPath:string;
+  showSide:boolean = false;
   constructor(private location: Location,
               private router: Router,
               private route: ActivatedRoute) {}
 
   ngOnInit() {
-    let currentPath = this.location.path();
+    this.currentPath = this.location.path();
+    this.showSide = this.currentPath.indexOf("/auth") !== 0;
     this.router.navigate(["auth"], {
       relativeTo: this.route,
       queryParams: {
-        returnedTo: currentPath.indexOf("/auth") === 0 ? "/" : currentPath
+        returnedTo: this.currentPath.indexOf("/auth") === 0 ? "/" : this.currentPath
       }
     });
   }
+
 }
