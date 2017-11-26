@@ -1,2 +1,8 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<router-outlet></router-outlet>
+<app-top></app-top>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <app-side></app-side>
+  </mat-sidenav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>
+
