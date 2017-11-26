@@ -10,7 +10,6 @@ import {
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ParseService } from "./parse.service";
-import { TopComponent } from './top/top.component';
 import { SideComponent } from './side/side.component';
 const appRoutes:Routes = [
   { path: 'auth', component: AuthComponent },
@@ -23,7 +22,6 @@ const appRoutes:Routes = [
     AppComponent,
     AuthComponent,
     DashboardComponent,
-    TopComponent,
     SideComponent
   ],
   imports: [
