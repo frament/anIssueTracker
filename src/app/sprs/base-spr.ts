@@ -31,8 +31,7 @@ export class BaseSpr {
     this.defaultAfterTriger();
   }
   update(item:any):void{
-    let storedItem = this._get({id:item[this.options.index]})[0];
-    storedItem = item;
+    this.items[this._getItemArrIndexById(item[this.options.index])] = item;
     this.defaultAfterTriger();
   }
   remove(item:any):void{
