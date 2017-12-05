@@ -89,7 +89,7 @@ export class BaseSpr {
   asObservable():Observable<any[]>{
     return this.observer;
   }
-  defaultAfterTriger():void{
+  private defaultAfterTriger():void{
     this._items.next(this.items);
     if(this.options.storeLocal) this.saveLocal();
   }
