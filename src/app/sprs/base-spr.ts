@@ -21,8 +21,8 @@ export class BaseSpr {
   private localStore:any = new Localstorage();
   private options:sprOptions;
   constructor(name:string,options?:sprOptions){
-    this.options = options;
-    if(!this.options.index) this.options.index = 'id';
+    this.options = { storeLocal:true, index : 'id'};
+    Object.keys(options).map(key => this.options[key] = options[key]);
     if(this.options.storeLocal && this.hasSavedLocal()) this.getSavedLocal();
   }
   add(item:any):void{
