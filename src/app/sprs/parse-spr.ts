@@ -41,20 +41,21 @@ export class ParseSpr extends BaseSpr{
     new Query(this.parseClass).find().then((results:ParseObject[]) => results.map(x=>x.destroy()));
     super.clear()
   };
-  //todo сделать массовое добавление
   load(options:LoadOptions):void{
     let q = new Query(this.parseClass);
     if (options.include) options.include.map( i => q.include(i));
     if (options.limit) q.limit(options.limit);
     if (options.skip) q.skip(options.skip);
     q.find().then((results:ParseObject[]) => {
-      results.map(x=>this.add(this.loadMap(x)));
+      let items = results.map(x=>this.loadMap(x));
+      this.add(items);
     });
   }
-  //todo сделать массовое добавление
   loadAll():void{
     new Query(this.parseClass).find().then((results:ParseObject[]) => {
-      results.map(x=>this.add(this.loadMap(x)));
+      super.clear();
+      let items = results.map(x=>this.loadMap(x));
+      this.add(items);
     })
   }
 }

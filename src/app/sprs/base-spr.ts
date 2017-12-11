@@ -37,21 +37,35 @@ export class BaseSpr {
   getIndex():string{
     return this.options.index;
   }
-  //todo сделать массовую обработку
   add(item:any)
   add(item:any[]):void{
-    if (!item[this.options.index]) item[this.options.index] = this.items.length;
-    this.items.push(item);
+    if (Array.isArray(item)){
+      let indexedItems = item.map((si,i) => {
+        if (!si[this.options.index]) si[this.options.index] = this.items.length+i;
+      });
+      this.items = this.items.concat(indexedItems);
+    }else{
+      if (!item[this.options.index]) item[this.options.index] = this.items.length;
+      this.items.push(item);
+    }
     this.defaultAfterTriger();
   }
-  //todo сделать массовую обработку
-  update(item:any):void{
-    this.items[this._getItemArrIndexById(item[this.options.index])] = item;
+  update(item:any)
+  update(item:any[]):void{
+    if (Array.isArray(item)){
+      item.map(x => this.items[this._getItemArrIndexById(x[this.options.index])] = x)
+    }else{
+      this.items[this._getItemArrIndexById(item[this.options.index])] = item;
+    }
     this.defaultAfterTriger();
   }
-  //todo сделать массовую обработку
-  remove(item:any):void{
-    this.items.splice(this._getItemArrIndexById(item[this.options.index]),1);
+  remove(item:any)
+  remove(item:any[]):void{
+    if (Array.isArray(item)){
+      item.map(x=>this.items.splice(this._getItemArrIndexById(x[this.options.index]),1));
+    }else{
+      this.items.splice(this._getItemArrIndexById(item[this.options.index]),1);
+    }
     this.defaultAfterTriger();
   }
   getFirst(query:getOptions):any{
