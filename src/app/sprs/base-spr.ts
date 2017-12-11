@@ -16,7 +16,6 @@ export class BaseSpr {
   private items:any[];
   private _items: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private observer: Observable<any[]> = this._items.asObservable();
-  private storeLocal:boolean;
   private name:string;
   private localStore:any;
   private options:sprOptions;
@@ -29,15 +28,28 @@ export class BaseSpr {
       if (this.hasSavedLocal()) this.getSavedLocal();
     }
   }
-  add(item:any):void{
+  getName():string{
+    return this.name;
+  }
+  getOption(option:string):any{
+    return this.options[option]?this.options[option]:null;
+  }
+  getIndex():string{
+    return this.options.index;
+  }
+  //todo сделать массовую обработку
+  add(item:any)
+  add(item:any[]):void{
     if (!item[this.options.index]) item[this.options.index] = this.items.length;
     this.items.push(item);
     this.defaultAfterTriger();
   }
+  //todo сделать массовую обработку
   update(item:any):void{
     this.items[this._getItemArrIndexById(item[this.options.index])] = item;
     this.defaultAfterTriger();
   }
+  //todo сделать массовую обработку
   remove(item:any):void{
     this.items.splice(this._getItemArrIndexById(item[this.options.index]),1);
     this.defaultAfterTriger();
@@ -104,7 +116,7 @@ export class BaseSpr {
     return this.observer;
   }
   //todo сделать обработку не полной перезаписи а перезаписи отдельных значений
-  private defaultAfterTriger():void{
+  defaultAfterTriger():void{
     this._items.next(this.items);
     if(this.options.storeLocal) this.saveAllLocal();
   }
