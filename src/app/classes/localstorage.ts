@@ -23,6 +23,10 @@ export class LocalStore {
     return instance && this.instances[instance] ? this.instances[instance].clear():localforage.clear();
   }
 
+  hasInstance(instance:string){
+    return !!this.instances[instance];
+  }
+
   async getAll()
   async getAll(instance?:string):Promise<any>{
     let _inst = instance && this.instances[instance] ? this.instances[instance] : localforage;

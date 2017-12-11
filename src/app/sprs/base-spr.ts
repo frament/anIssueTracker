@@ -1,4 +1,4 @@
-import {Localstorage} from "../classes/localstorage";
+import {LocalStore} from "../classes/localstorage";
 import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 export interface sprOptions{
@@ -18,12 +18,16 @@ export class BaseSpr {
   private observer: Observable<any[]> = this._items.asObservable();
   private storeLocal:boolean;
   private name:string;
-  private localStore:any = new Localstorage();
+  private localStore:any;
   private options:sprOptions;
   constructor(name:string,options?:sprOptions){
+    this.name = name;
     this.options = { storeLocal:true, index : 'id'};
     Object.keys(options).map(key => this.options[key] = options[key]);
-    if(this.options.storeLocal && this.hasSavedLocal()) this.getSavedLocal();
+    if (this.options.storeLocal) {
+      this.localStore = new LocalStore(name);
+      if (this.hasSavedLocal()) this.getSavedLocal();
+    }
   }
   add(item:any):void{
     if (!item[this.options.index]) item[this.options.index] = this.items.length;
@@ -81,15 +85,26 @@ export class BaseSpr {
     if(this.options.storeLocal) this.clearSavedLocal();
     this.defaultAfterTriger();
   }
-  saveLocal():void{}
-  getSavedLocal():void{}
-  hasSavedLocal():void{}
+  saveAllLocal():void{
+    this.localStore.clear().then(
+      this.items.map(item => this.localStore.setItem(item[this.options.index],item))
+    )
+  }
+  getSavedLocal():void{
+    this.localStore.getAll(this.name).then(items => {
+      this.items = items;
+      this._items.next(items);
+    })
+  }
+  hasSavedLocal():boolean{
+    return this.localStore.hasInstance(this.name);
+  }
   clearSavedLocal():void{}
   asObservable():Observable<any[]>{
     return this.observer;
   }
   private defaultAfterTriger():void{
     this._items.next(this.items);
-    if(this.options.storeLocal) this.saveLocal();
+    if(this.options.storeLocal) this.saveAllLocal();
   }
 }
