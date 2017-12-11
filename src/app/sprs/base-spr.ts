@@ -103,6 +103,7 @@ export class BaseSpr {
   asObservable():Observable<any[]>{
     return this.observer;
   }
+  //todo сделать обработку не полной перезаписи а перезаписи отдельных значений
   private defaultAfterTriger():void{
     this._items.next(this.items);
     if(this.options.storeLocal) this.saveAllLocal();
