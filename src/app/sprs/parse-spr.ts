@@ -1,4 +1,4 @@
-import {BaseSpr, getOptions, sprOptions} from "./base-spr";
+import {BaseSpr, sprOptions} from "./base-spr";
 import {Object as ParseObject,Query} from 'parse';
 
 export interface LoadOptions {
@@ -9,7 +9,7 @@ export interface LoadOptions {
 
 export class ParseSpr extends BaseSpr{
   private parseClass : any;
-  private parseItems : ParseObject[];
+  private parseItems : ParseObject[] = [];
   constructor(name:string,options:sprOptions){
     super(name,options);
     this.parseClass = ParseObject.extend(name);
@@ -54,6 +54,7 @@ export class ParseSpr extends BaseSpr{
   loadAll():void{
     new Query(this.parseClass).find().then((results:ParseObject[]) => {
       super.clear();
+      this.parseItems = results;
       let items = results.map(x=>this.loadMap(x));
       this.add(items);
     })
