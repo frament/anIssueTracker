@@ -11,10 +11,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ParseService } from "./parse.service";
 import { SideComponent } from './side/side.component';
-const appRoutes:Routes = [
+import { IssuesComponent } from './issues/issues.component';
+import {IssueServise} from "./servises/Issue.servise";
+
+const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo:'dashboard',pathMatch: 'full' },
+  { path: 'issues', component: IssuesComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', component: AuthComponent }
 ];
 @NgModule({
@@ -22,7 +26,8 @@ const appRoutes:Routes = [
     AppComponent,
     AuthComponent,
     DashboardComponent,
-    SideComponent
+    SideComponent,
+    IssuesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ const appRoutes:Routes = [
       //{ enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [ParseService],
+  providers: [ParseService, IssueServise],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
