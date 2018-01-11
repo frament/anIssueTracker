@@ -1,4 +1,8 @@
 <p>Issues</p>
 <ul>
-  <li *ngFor="let issue of issues">{{issue.Code}}</li>
+  <li *ngFor="let issue of issues">
+    <a routerLink="/issue/{{issue.Code}}">
+      <span class="badge">{{issue.Code}}</span> {{issue.Text}}
+    </a>
+  </li>
 </ul>

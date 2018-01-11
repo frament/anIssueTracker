@@ -3,6 +3,4 @@ export class BaseClass {
   createdAt = new Date();
   updatedAt = new Date();
   Id = -1;
-  Code = '';
-  Name = '';
 }

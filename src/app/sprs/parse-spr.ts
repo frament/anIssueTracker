@@ -1,10 +1,13 @@
 import {BaseSpr, getOptions, sprOptions} from "./base-spr";
 import {Object as ParseObject, Query} from 'parse';
+import {Equal} from '../classes/Equal';
+
 
 export interface LoadOptions {
   limit?: number;
   skip?: number;
   include?: string[];
+  equal?: Equal[];
 }
 
 export class ParseSpr extends BaseSpr{
@@ -49,6 +52,7 @@ export class ParseSpr extends BaseSpr{
     if (options.include) options.include.map( i => q.include(i));
     if (options.limit) q.limit(options.limit);
     if (options.skip) q.skip(options.skip);
+    if (options.equal) options.equal.map(i => q.equalTo(i.Field, i.Value))
     q.find().then((results: ParseObject[]) => {
       const items = results.map(x => this.loadMap(x));
       super.add(items);
